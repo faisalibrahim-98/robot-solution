@@ -2,34 +2,28 @@ const input = ["O2", "B1", "B2", "O4"];
 
 function moves(input) {
   const [Ooperations, Boperations] = splitRobots(input);
-  let totalOperationsPerformed = 0;
-  let OoperationsPerformed = 0;
-  let BoperationsPerformed = 0;
-  let Oposition = 1;
-  let Bposition = 1;
-  let totalSteps = 1;
+  let [OoperationsPerformed, BoperationsPerformed] = [0, 0];
+  let [OexpectedPotion, BexpectedPotion] = [0, 0];
+  let [Oposition, Bposition] = [1, 1];
+  let totalSteps = 0;
 
-  while (input.length !== totalOperationsPerformed) {
-    const OexpectedPotion =
-      Ooperations[OoperationsPerformed]?.split("")[1] || null;
-    const BexpectedPotion =
-      Boperations[BoperationsPerformed]?.split("")[1] || null;
+  while (BexpectedPotion !== null || OexpectedPotion !== null) {
+    OexpectedPotion = Ooperations[OoperationsPerformed]?.split("")[1] || null;
+    BexpectedPotion = Boperations[BoperationsPerformed]?.split("")[1] || null;
 
     if (Oposition === +OexpectedPotion) {
-      OoperationsPerformed = OoperationsPerformed + 1;
-      totalOperationsPerformed = totalOperationsPerformed + 1;
+      OoperationsPerformed++;
     } else {
-      Oposition = Oposition + 1;
+      Oposition++;
     }
 
     if (Bposition === +BexpectedPotion) {
-      BoperationsPerformed = BoperationsPerformed + 1;
-      totalOperationsPerformed = totalOperationsPerformed + 1;
+      BoperationsPerformed++;
     } else {
-      Bposition = Bposition + 1;
+      Bposition++;
     }
 
-    totalSteps = totalSteps + 1;
+    totalSteps++;
   }
 
   return totalSteps;
